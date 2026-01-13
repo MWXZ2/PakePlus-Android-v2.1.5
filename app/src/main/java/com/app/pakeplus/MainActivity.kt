@@ -37,6 +37,31 @@ import androidx.core.net.toUri
 import org.json.JSONObject
 import java.net.URISyntaxException
 import kotlin.math.abs
+package com.pakeplus.pacbao
+
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Bundle
+import app.tauri.android.TauriActivity
+
+class MainActivity : TauriActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        // List of permissions we need to ask for
+        val permissions = arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.MODIFY_AUDIO_SETTINGS
+        )
+
+        // Check if we already have permission. If not, ask the user.
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+            checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(permissions, 1)
+        }
+    }
+}
 
 class MainActivity : AppCompatActivity() {
 
